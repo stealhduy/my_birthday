@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="icon" type="image/png" href="./assest/img/icon/icon7.png" />
+        <title>Ảnh kỉ niệm</title>
+        <link rel="stylesheet" href="./assest/css/gallery.css"/>
+        <link rel="stylesheet" href="./assest/css/style.css"/>
+        <link rel="stylesheet" href="./assest/fonts/themify-icons/themify-icons.css">
+    </head>
+
+    <body>
+        <div class="buttons">
+            <a href="index.html" class="menu-btn btn-birth">Sinh nhật <i class="btn-icon ti-gift"></i></a>
+            <a href="timeline.html" class="menu-btn btn-timeline">Dòng thời gian <i class="btn-icon ti-heart"></i></a>
+            <a href="gallery.html" class="menu-btn btn-gallery">Ảnh kỉ niệm <i class="btn-icon ti-face-smile"></i></a>
+        </div>
+
+        <!-- Image -->
+        <div id="gallery">
+            <div class="gallery-item">
+                <div class="content-v"><img src="./assest/img/gallery/pic9.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-v"><img src="./assest/img/gallery/pic7.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-v"><img src="./assest/img/gallery/pic8.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-v"><img src="./assest/img/gallery/pic5.jpg" alt=""/></div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="content-h"><img src="./assest/img/gallery/pic6.jpg" alt=""/></div>
+            </div>
+        
+            <div class="gallery-item">
+                <div class="content-v"><img src="./assest/img/gallery/pic10.jpg" alt=""/></div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="content-h"><img src="./assest/img/gallery/pic11.jpg" alt=""/></div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="content-h"><img src="./assest/img/gallery/pic12.jpg" alt=""/></div>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="content-v"><img src="./assest/img/gallery/pic13.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-v"><img src="./assest/img/gallery/pic1.jpg" alt=""/></div>
+            </div>
+    
+            <div class="gallery-item">
+                <div class="content-v"><img src="./assest/img/gallery/pic2.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-h"><img src="./assest/img/gallery/pic14.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-h"><img src="./assest/img/gallery/pic15.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-h"><img src="./assest/img/gallery/pic16.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-h"><img src="./assest/img/gallery/pic17.jpg" alt=""/></div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="content-h"><img src="./assest/img/gallery/pic18.jpg" alt=""/></div>
+            </div>
+        </div>
+
+        <!-- Phần nhạc -->
+        <audio id="player" autoplay loop>
+            <source src="./assest/music/music3.mp3" type="audio/mp3"/>
+        </audio>
+
+        <div class="modal-overlay">
+            <div class="modal-content">
+              <span class="close-btn">&times;</span>
+              <img src="" alt="">
+            </div>
+        </div>
+    </body>
+
+    
+    <!-- JavaScript code to control the image animation and modal -->
+    <script>
+    // Wait for the document to load
+    document.addEventListener("DOMContentLoaded", function () {
+    // Get all gallery items
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    // Get modal elements
+    const modalOverlay = document.querySelector(".modal-overlay");
+    const modalContent = document.querySelector(".modal-content");
+    const modalImage = modalContent.querySelector("img");
+    const closeBtn = modalContent.querySelector(".close-btn");
+
+    // Function to check if an element is in the viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+            (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+    // Function to handle the scroll event
+    function handleScroll() {
+        // Loop through all gallery items
+        galleryItems.forEach(function (item) {
+        // Check if the item is in the viewport
+        if (isInViewport(item)) {
+            // Add the "visible" class to show the image with fade-in effect
+            item.classList.add("visible");
+        }
+        });
+    }
+
+    // Function to open the modal and display the clicked image
+    function openModal(imageSrc) {
+        modalImage.src = imageSrc;
+        modalOverlay.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modalOverlay.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    // Function to handle image click event
+    function handleImageClick(event) {
+        const clickedImageSrc = event.target.src;
+        const isVerticalImage = event.target.parentNode.classList.contains("content-v");
+
+        if (isVerticalImage) {
+        // For vertical images, fit to browser frame vertically
+        modalImage.style.height = "640px";
+        modalImage.style.width = "auto";
+        } else {
+        // For horizontal images, fit to browser frame horizontally
+        modalImage.style.width = "850px";
+        modalImage.style.height = "auto";
+        }
+
+        openModal(clickedImageSrc);
+    }
+
+    // Attach click event listener to each gallery item
+    galleryItems.forEach(function (item) {
+        item.addEventListener("click", handleImageClick);
+    });
+
+    // Attach click event listener to the close button
+    closeBtn.addEventListener("click", closeModal);
+
+    // Listen for click event on modal overlay
+    modalOverlay.addEventListener("click", function (event) {
+        // Check if the click happened outside the modal content
+        if (!modalContent.contains(event.target)) {
+        closeModal();
+        }
+    });
+
+    // Attach scroll event listener to the window
+    window.addEventListener("scroll", handleScroll);
+
+    // Trigger the scroll event to show visible images on initial load
+    handleScroll();
+    });
+    </script>
+</html>
